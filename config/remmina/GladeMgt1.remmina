@@ -1,0 +1,17 @@
+[remmina]
+ssh_auth=0
+ssh_charset=
+ssh_privatekey=
+group=ModuleB
+password=
+name=GladeMgt1
+ssh_username=lmyers
+exec=
+ssh_server=glademgt1.ucar.edu
+protocol=SSH
+ssh_enabled=1
+server=glademgt1.ucar.edu
+window_maximize=0
+window_width=1192
+window_height=1106
+viewmode=1

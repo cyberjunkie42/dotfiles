@@ -1,0 +1,17 @@
+[remmina]
+ssh_auth=0
+ssh_charset=
+ssh_privatekey=
+group=Nagios
+password=
+name=NagiosML
+ssh_username=lmyers
+exec=
+ssh_server=nagiosml.ucar.edu
+protocol=SSH
+ssh_enabled=1
+server=nagiosml.ucar.edu
+window_maximize=0
+window_width=1792
+window_height=762
+viewmode=1

@@ -1,0 +1,13 @@
+[remmina]
+ssh_auth=0
+ssh_charset=
+ssh_privatekey=
+group=KIOSK
+password=
+name=EfficencyAtWk1
+ssh_username=casg
+exec=
+ssh_server=
+protocol=SSH
+ssh_enabled=1
+server=128.117.180.133

@@ -1,0 +1,17 @@
+[remmina]
+ssh_auth=0
+ssh_charset=
+ssh_privatekey=
+group=Nagios
+password=
+ssh_username=lmyers
+exec=
+name=NagiosDSG
+window_maximize=1
+ssh_server=nagiosdsg.ucar.edu
+window_width=640
+protocol=SSH
+window_height=551
+ssh_enabled=1
+viewmode=1
+server=nagiosdsg.ucar.edu

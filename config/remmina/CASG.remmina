@@ -1,0 +1,17 @@
+[remmina]
+ssh_auth=0
+ssh_charset=
+ssh_privatekey=
+group=CASG
+password=
+name=CASG
+ssh_username=lmyers
+exec=
+ssh_server=casg.nwsc.ucar.edu
+protocol=SSH
+ssh_enabled=1
+server=casg.nwsc.ucar.edu
+window_maximize=0
+window_width=1192
+window_height=748
+viewmode=1

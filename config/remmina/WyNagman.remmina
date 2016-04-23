@@ -1,0 +1,17 @@
+[remmina]
+ssh_auth=0
+ssh_charset=
+ssh_privatekey=
+group=Nagios
+password=
+name=WyNagman
+ssh_username=lmyers
+exec=
+ssh_server=wy-nagman.ucar.edu
+protocol=SSH
+ssh_enabled=1
+server=wy-nagman.ucar.edu
+window_maximize=0
+window_width=1192
+window_height=884
+viewmode=1

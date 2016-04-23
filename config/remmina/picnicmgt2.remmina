@@ -1,0 +1,17 @@
+[remmina]
+ssh_auth=0
+ssh_charset=
+ssh_privatekey=
+group=ModuleB
+password=
+ssh_username=lmyers
+exec=
+name=picnicmgt2
+ssh_server=picnicmgt2.ucar.edu
+protocol=SSH
+ssh_enabled=1
+server=picnicmgt2.ucar.edu
+window_maximize=0
+window_width=1889
+window_height=551
+viewmode=1

@@ -1,0 +1,17 @@
+[remmina]
+ssh_auth=0
+ssh_charset=CP1250
+ssh_privatekey=
+group=ModuleB
+password=
+name=ermgt1
+ssh_username=lmyers
+exec=
+ssh_server=ermgt1.ucar.edu
+protocol=SSH
+ssh_enabled=1
+server=ermgt1.ucar.edu
+window_maximize=0
+window_width=1192
+window_height=551
+viewmode=1

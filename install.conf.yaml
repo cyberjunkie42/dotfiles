@@ -1,0 +1,63 @@
+- defaults:
+    link:
+      create: true
+      relink: true
+
+- clean: ['~']
+
+- shell:
+     - ["mkdir -p ~/.config", "Createing the config folder"]
+     - ["mkdir -p ~/.config/remmina", "Createing the remmina folder"]
+     - ["mkdir -p ~/.config/albert", "Createing the albert folder"]
+     - ["mkdir -p ~/.i3", "Createing the i3 config folder"]
+     - [git update-submodules, Installing/updating submodules]
+     - [chmod +x --recursive bin/, make linked progs all executable]
+
+- link:
+     ~/.asoundrc:           asoundrc
+     ~/.bashrc:           bashrc
+     ~/.bash_profile:      bash_profile
+     ~/.bash_logout:       bash_logout
+     ~/.dir_colors:           dir_colors
+     ~/.gitconfig:           gitconfig
+     ~/.gitignore_global:     gitignore_global
+     ~/.i3/config: 
+         path:      i3/config
+     ~/.nanorc:               config/nanorc
+     ~/.config/albert/albert.conf:     config/albert/albert.conf
+     ~/.config/remmina/CASG_Dev.remmina:     config/remmina/CASG_Dev.remmina
+     ~/.config/remmina/CASG.remmina:     config/remmina/CASG.remmina
+     ~/.config/remmina/Climate_Science_VNC.remmina:     config/remmina/Climate_Science_VNC.remmina
+     ~/.config/remmina/Construction_Slideshow_PC_-_VNC.remmina:     config/remmina/Construction_Slideshow_PC_-_VNC.remmina
+     ~/.config/remmina/EfficencyAtWk1.remmina:     config/remmina/EfficencyAtWk1.remmina
+     ~/.config/remmina/EfficencyAtWk1_VNC.remmina:     config/remmina/EfficencyAtWk1_VNC.remmina
+     ~/.config/remmina/EfficencyAtWk2.remmina:     config/remmina/EfficencyAtWk2.remmina
+     ~/.config/remmina/EfficencyAtWk2_-_Video_VNC.remmina:     config/remmina/EfficencyAtWk2_-_Video_VNC.remmina
+     ~/.config/remmina/ermgt1.remmina:     config/remmina/ermgt1.remmina
+     ~/.config/remmina/ermgt2.remmina:     config/remmina/ermgt2.remmina
+     ~/.config/remmina/Extreme_Weather_VNC.remmina:     config/remmina/Extreme_Weather_VNC.remmina
+     ~/.config/remmina/ForcesResources_VNC.remmina:     config/remmina/ForcesResources_VNC.remmina
+     ~/.config/remmina/GladeMgt1.remmina:     config/remmina/GladeMgt1.remmina
+     ~/.config/remmina/jsmgt.remmina:     config/remmina/jsmgt.remmina
+     ~/.config/remmina/NagiosDev.remmina:     config/remmina/NagiosDev.remmina
+     ~/.config/remmina/NagiosDSG.remmina:     config/remmina/NagiosDSG.remmina
+     ~/.config/remmina/NagiosML.remmina:     config/remmina/NagiosML.remmina
+     ~/.config/remmina/NagiosM.remmina:     config/remmina/NagiosM.remmina
+     ~/.config/remmina/NWSC-Casper.remmina:     config/remmina/NWSC-Casper.remmina
+     ~/.config/remmina/NWSC-Cody.remmina:     config/remmina/NWSC-Cody.remmina
+     ~/.config/remmina/NWSC-Gillette.remmina:     config/remmina/NWSC-Gillette.remmina
+     ~/.config/remmina/NWSC-IntKiosk_VNC.remmina:     config/remmina/NWSC-IntKiosk_VNC.remmina
+     ~/.config/remmina/NWSC-Rawlins.remmina:     config/remmina/NWSC-Rawlins.remmina
+     ~/.config/remmina/NWSC-Sheridan.remmina:     config/remmina/NWSC-Sheridan.remmina
+     ~/.config/remmina/picnicmgt1.remmina:     config/remmina/picnicmgt1.remmina
+     ~/.config/remmina/picnicmgt2.remmina:     config/remmina/picnicmgt2.remmina
+     ~/.config/remmina/PowerOfParallelVNC.remmina:     config/remmina/PowerOfParallel_VNC.remmina
+     ~/.config/remmina/RDP-Dominica.remmina:     config/remmina/RDP-Dominica.remmina
+     ~/.config/remmina/RDP-Haiti.remmina:     config/remmina/RDP-Haiti.remmina
+     ~/.config/remmina/RDP-Panama.remmina:     config/remmina/RDP-Panama.remmina
+     ~/.config/remmina/remmina.pref:     config/remmina/remmina.pref
+     ~/.config/remmina/ScienceSociety_VNC.remmina:     config/remmina/ScienceSociety_VNC.remmina
+     ~/.config/remmina/WyNagman.remmina:     config/remmina/WyNagman.remmina
+     ~/.config/remmina/YoungScientist_VNC.remmina:     config/remmina/YoungScientist_VNC.remmina
+     ~/.config/remmina/YsMgt1.remmina:     config/remmina/YsMgt1.remmina
+
