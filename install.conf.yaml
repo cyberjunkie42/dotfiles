@@ -18,7 +18,8 @@
      ~/.bashrc:           bashrc
      ~/.bash_profile:      bash_profile
      ~/.bash_logout:       bash_logout
-     ~/.dir_colors:           dir_colors
+#     ~/.dir_colors:           dir_colors
+     ~/.dir_colors:           dircolors_solarized/dircolors.256dark
      ~/.gitconfig:           gitconfig
      ~/.gitignore_global:     gitignore_global
      ~/.i3/config: 
