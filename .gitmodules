@@ -10,3 +10,6 @@
 [submodule "nanocolors"]
 	path = nanocolors
 	url = git://github.com/nanorc/nanorc.git
+[submodule "bin/8645010"]
+	path = bin/8645010
+	url = git://gist.github.com/8645010.git
