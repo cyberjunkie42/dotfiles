@@ -32,12 +32,17 @@ alias free='free -m'                      # show sizes in MB
 alias np='nano PKGBUILD'
 alias fixit='sudo rm -f /var/lib/pacman/db.lck'
 alias update='yaourt -Syua'
+alias updates='sudo pacman -Syu'
 alias con='nano $HOME/.i3/config'
 alias comp='nano $HOME/.config/compton.conf'
 alias inst='sudo pacman -S'
 alias mirrors='sudo pacman-mirrors -g'
 alias db='sudo pacman -Syy'
 alias printer='system-config-printer'
+alias prettyprint='enscript --pretty-print --landscape --columns=2 --fancy-header'
+
+# Setup Colors for when using ls for directory structures.
+eval `/usr/bin/dircolors -b ~/.dir_colors`
 
 # ex - archive extractor
 # usage: ex <file>

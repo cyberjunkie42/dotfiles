@@ -36,18 +36,24 @@ bindsym $mod+Return exec terminal
 # kill focused window
 bindsym $mod+Shift+q kill
 
+##########################################################################
+#                                   dmenu                                #
+##########################################################################
+
 # start program launcher
 bindsym $mod+d exec --no-startup-id dmenu_recency
 
 ################################################################################################
 ## sound-section - DO NOT EDIT if you wish to automatically upgrade Alsa -> Pulseaudio later! ##
 ################################################################################################
-
-exec --no-startup-id volumeicon
-bindsym $mod+Ctrl+m exec terminal -e 'alsamixer'
-#exec --no-startup-id pulseaudio
-#exec --no-startup-id pa-applet
-#bindsym $mod+Ctrl+m exec pavucontrol
+#ALSA
+#exec --no-startup-id volumeicon
+#bindsym $mod+Ctrl+m exec terminal -e 'alsamixer'
+#PulseAudio
+exec --no-startup-id pulseaudio
+exec --no-startup-id pa-applet
+exec --no-startup-id pasystray
+bindsym $mod+Ctrl+m exec pavucontrol
 
 ################################################################################################
 
@@ -55,22 +61,11 @@ bindsym $mod+Ctrl+m exec terminal -e 'alsamixer'
 # bindsym XF86MonBrightnessUp exec "xbacklight -inc 10; notify-send 'brightness up'"
 # bindsym XF86MonBrightnessDown exec "xbacklight -dec 10; notify-send 'brightness down'"
 
-# Start Applications
-bindsym $mod+Ctrl+b exec terminal -e 'bmenu'
-bindsym $mod+F2 exec palemoon
-bindsym $mod+F3 exec pcmanfm
-# bindsym $mod+F3 exec ranger
-bindsym $mod+Shift+F3 exec gksu pcmanfm
-bindsym $mod+F5 exec terminal -e 'mocp'
-bindsym $mod+t exec --no-startup-id pkill compton
-bindsym $mod+Ctrl+t exec --no-startup-id compton -b
-bindsym $mod+Shift+d --release exec "killall dunst; exec notify-send 'restart dunst'"
-bindsym Print exec "scrot -e 'mv $f ~/Screenshots'; sleep 1; exec notify-send 'screenshot has been saved to ~/Screenshots'"
-bindsym $mod+Print --release exec "scrot -ue 'mv $f ~/Screenshots'; sleep 1; exec notify-send 'screenshot has been saved to ~/Screenshots'"
-bindsym $mod+Shift+Print --release exec "notify-send 'selection will be saved to ~/Screenshots'; scrot -se 'mv $f ~/Screenshots'"
-bindsym $mod+Shift+h exec qpdfview i3_help.pdf
-bindsym $mod+Ctrl+x exec xkill
+##########################################################################
+#                                   focus                                #
+##########################################################################
 
+# Window Focus
 focus_follows_mouse no
 
 # change focus
@@ -120,13 +115,17 @@ bindsym $mod+e layout toggle split
 bindsym $mod+Shift+space floating toggle
 
 # change focus between tiling / floating windows
-bindsym $mod+space focus mode_toggle
+#bindsym $mod+space focus mode_toggle
 
 # toggle sticky
 bindsym $mod+Shift+s sticky toggle
 
 # focus the parent container
 bindsym $mod+a focus parent
+
+##########################################################################
+#                                workspaces                              #
+##########################################################################
 
 # Workspace names
 set $workspace1 "1: Terms "
@@ -198,12 +197,15 @@ bindsym $mod+Shift+0 move container to workspace $workspace10; workspace $worksp
 bindsym $mod+Shift+bracketleft move workspace to output left
 bindsym $mod+Shift+bracketright move workspace to output right
 
-# Open applications on specific workspaces
+##########################################################################
+#          Open applications on specific workspaces                      #
+##########################################################################
+
 # assign [class="Thunderbird"] → $workspace1
 # assign [class="Pale moon"] $workspace2
 # assign [class="Pcmanfm"] $workspace3
 # assign [class="Skype"] $workspace5
-assign [class="^chromium"] → $workspace5
+assign [class="^Chromium"] → $workspace5
 assign [class="^Remmina" title="Connecting to *"] → $workspace1
 assign [class="^Remmina" title="CASG"] → $workspace4
 assign [class="^Remmina" title="CASGDev"] → $workspace4
@@ -256,6 +258,10 @@ bindsym $mod+Shift+r restart
 # exit i3 (logs you out of your X session)
 bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
 
+##########################################################################
+#                            shut down / restart                         #
+##########################################################################
+
 # Set shut down, restart and locking features
 bindsym $mod+F12 mode "$mode_system"
 set $mode_system (l)ock, (e)xit, switch_(u)ser, (s)uspend, (h)ibernate, (r)eboot, (Shift+s)hutdown
@@ -272,6 +278,10 @@ mode "$mode_system" {
     bindsym Return mode "default"
     bindsym Escape mode "default"
 }
+
+##########################################################################
+#                               resize windows                           #
+##########################################################################
 
 # Resize window (you can also use the mouse for that)
 bindsym $mod+r mode "resize"
@@ -297,12 +307,13 @@ mode "resize" {
         bindsym Escape mode "default"
 }
 
-# Lock screen
-bindsym XF86Explorer exec --no-startup-id blurlock
+##########################################################################
+#                           bar settings and colors                      #
+##########################################################################
 
 # Start i3bar to display a workspace bar (plus the system information i3status if available)
 bar {
-	status_command i3status
+	status_command i3status --config ~/.config/i3status/i3status.conf
 #	wheel_up_cmd nop
 #	wheel_down_cmd nop
 	font pango:Cantarell,Icons 9
@@ -318,6 +329,48 @@ bar {
 	tray_output GPU-0.DVI-I-1
 }
 
+##########################################################################
+#                  Start Application keybindings                         #
+##########################################################################
+
+# Lock screen
+bindsym XF86Explorer exec --no-startup-id blurlock
+
+# Calculator
+bindsym XF86Calculator exec --no-startup-id galculator
+
+# Albert
+bindsym $mod+space exec --no-startup-id albert show
+
+# Google Music Player
+#bindsym XF86Tools exec --no-startup-id /usr/bin/google-play-music-desktop-player
+
+bindsym $mod+Ctrl+b exec terminal -e 'bmenu'
+bindsym $mod+F2 exec palemoon
+bindsym $mod+F3 exec pcmanfm
+# bindsym $mod+F3 exec ranger
+bindsym $mod+Shift+F3 exec gksu pcmanfm
+bindsym $mod+F5 exec terminal -e 'mocp'
+bindsym $mod+t exec --no-startup-id pkill compton
+bindsym $mod+Ctrl+t exec --no-startup-id compton -b
+bindsym $mod+Shift+d --release exec "killall dunst; exec notify-send 'restart dunst'"
+bindsym Print exec "scrot -e 'mv $f ~/Screenshots'; sleep 1; exec notify-send 'screenshot has been saved to ~/Screenshots'"
+bindsym $mod+Print --release exec "scrot -ue 'mv $f ~/Screenshots'; sleep 1; exec notify-send 'screenshot has been saved to ~/Screenshots'"
+bindsym $mod+Shift+Print --release exec "notify-send 'selection will be saved to ~/Screenshots'; scrot -se 'mv $f ~/Screenshots'"
+bindsym $mod+Shift+h exec qpdfview i3_help.pdf
+bindsym $mod+Ctrl+x exec xkill
+
+# Floading Terminal Scratchpad
+bindsym $mod+shift+i exec terminal -geometry 160x80 -name floating
+bindsym $mod+i [instance="^floating$" class="URxvt"] scratchpad show
+
+for_window [instance="^floating$" class="URxvt"] floating enable, move position -1px 578px, move scratchpad
+
+
+##########################################################################
+#                                  autostart                             #
+##########################################################################
+
 # Autostart applications
 exec --no-startup-id rescuetime
 exec --no-startup-id albert
@@ -327,21 +380,22 @@ exec --no-startup-id nm-applet
 exec --no-startup-id xfce4-power-manager
 exec --no-startup-id pamac-tray
 exec --no-startup-id clipit
-# exec --no-startup-id blueman
+exec --no-startup-id blueman
 # exec_always --no-startup-id sbxkb
 exec --no-startup-id compton -b
 # exec --no-startup-id start_conky_grey
 exec --no-startup-id start_conky_green
-exec --no-startup-id xautolock -time 10 -locker blurlock
+exec --no-startup-id xautolock -time 30 -locker blurlock
 #exec --no-startup-id i3-msg 'workspace $workspace5; exec chromium
-exec --no-startup-id remmina, move window to $workspace7
+#exec --no-startup-id remmina, move window to $workspace7
 exec --no-startup-id firefox
 exec --no-startup-id chromium
-
-exec --no-startup-id nuvolaplayer3
+exec --nostartup-id pasystray
+#exec --no-startup-id nuvolaplayer3
+exec --no-startup-id solaar
 # Autostart for Status Screen
 #exec --no-startup-id palemoon, move window to $workspace8
-exec --no-startup-id /usr/bin/google-play-music-desktop-player
+#exec --no-startup-id /usr/bin/google-play-music-desktop-player
 
 
 # Theme colors
