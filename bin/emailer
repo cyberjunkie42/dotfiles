@@ -1,0 +1,102 @@
+#! /usr/bin/python2.7
+# this script is safe and uses end to end encryption for emails using smtp_ssl between your computer and the google mail server
+# you will need to change user @ucar.edu to your email, and put your password into the password field.
+import sys
+import time
+import subprocess
+import argparse
+import re
+sender = 'lmyers@ucar.edu'
+
+USERNAME = "lmyers@ucar.edu"
+PASSWORD = "1r0nTh0th"
+
+# typical values for text_subtype are plain, html, xml
+text_subtype = 'plain'
+p = argparse.ArgumentParser(description="A script for the automation of common emails that we sent out. ")
+p.add_argument("-s", "--security", dest="securityemail", nargs=2, metavar=('Username', 'Supervisor'),
+               help="This sends an email to security for password resets, it will take two paramaters the user's username and their SUPERVISOR'S USERNAME ")
+p.add_argument("-3", "--sev3", dest="sev3", nargs=2, metavar=('Hostname', 'Email'),
+               help="Use this to send a sev3 email the parameters are hostname, the destination email or email addresses. If adding more than one email address add a comma with no spaces between the addresses. Example: \n\n user1@ucar.edu,user2@csu.edu " )
+p.add_argument("-r", "--report", dest="report", nargs=1, metavar=('IpAddress'), help="Use this to send a report with with a sev3 instance that basically runs MTR (ping and traceroute) and adds it to the email. Please note this functionality only works on linux.")
+if len(sys.argv) < 2:
+    p.print_help()
+    sys.exit(0)
+args = p.parse_args()
+
+
+def sendmail(subject, content, destination):
+    from smtplib import SMTP_SSL as SMTP  # this invokes the secure SMTP protocol (port 465, uses SSL by default)
+    # from smtplib import SMTP                  # use this for standard SMTP protocol   (port 25, no encryption)
+    from email.mime.text import MIMEText
+
+    try:
+        msg = MIMEText(content, text_subtype)
+        msg['Subject'] = subject
+        msg['From'] = sender  # some SMTP servers will do this automatically, not all
+        conn = SMTP('smtp.gmail.com')
+        conn.set_debuglevel(False)
+        conn.login(USERNAME, PASSWORD)
+        try:
+            conn.sendmail(sender, destination, msg.as_string())
+        finally:
+            conn.close()
+            print "email was successfully sent"
+    except Exception, exc:
+        sys.exit("mail failed; %s" % str(exc))  # give a error message
+
+
+if args.sev3:
+    emails = []
+    hostname = str(args.sev3[0])
+    destemail = str(args.sev3[1])
+    if '@' in destemail:
+        if ',' in destemail:
+            recipients= re.split(",", destemail)
+            for recipient in recipients:
+                emails.append(recipient)
+        else:
+            emails = [destemail, "casg@ucar.edu"]
+        subject = hostname + " has become unresponsive to our Monitoring System "
+        content = "This is a courtesy message to inform you that the Cheyenne NCAR NOC Monitoring System detected that " \
+                  + hostname + " went down at approximately " + time.strftime("%I:%M:%S %p") + " on " + time.strftime(
+            "%m/%d/%Y")
+        if args.report:
+            ip=str(args.report[0])
+            report = subprocess.check_output(['mtr', ip, '-r'])
+            content = content + " \n\n\n\n" + report
+        sendmail(subject, content, emails)
+
+        # print (subject + "\n\n\n " + content+ " \n\n\n " +str(emails))
+    else:
+        print("Sorry you seem to have messed up the arguments no valid email address was found")
+if args.securityemail:
+    # takes the first argument as the users username
+    username = args.securityemail[0]
+    # assigns the second argument as the supervisors username
+    supervisorUserName = args.securityemail[1]
+    # grabs the users username using curl and the api connector jfrazier wrote
+    userFullName = subprocess.check_output("curl -G -s \"http://casg.nwsc.ucar.edu/ldap.php?search=" + username + "&field=name\"", shell=True)
+    # grabs the supervisors email and username using the api connecter jfrazier wrote
+    supervisorEmail = subprocess.check_output("curl -G -s \"http://casg.nwsc.ucar.edu/ldap.php?search=" + supervisorUserName + "&field=email\"", shell=True)
+    supervisorName = subprocess.check_output("curl -G -s \"http://casg.nwsc.ucar.edu/ldap.php?search=" + supervisorUserName + "&field=name\"", shell=True)
+    # sets the subject of the email
+    subject = "Assisted passphrase reset for [" + username + "]"
+    # the next 4 lines basically try to get the users and supervisors full name but fall back to username if the api can't get the user's full name
+    if not "does not exist" in userFullName:
+        content1 = "I have reset the UCAS password for " + userFullName + " at the request of "
+    else:
+        content1 = "I have reset the UCAS password for " + username + " at the request of "
+    if not "does not exist" in supervisorName:
+        content2= supervisorName + ". \n\nThis request was performed at approximately " \
+              + time.strftime("%I:%M:%S %p") + " on " + time.strftime("%m/%d/%Y.")
+    else:
+        content2= supervisorUserName + ". \n\nThis request was performed at approximately " \
+              + time.strftime("%I:%M:%S %p") + " on " + time.strftime("%m/%d/%Y.")
+    if not "does not exist" in supervisorEmail:
+        destination = ['hunsaker@ucar.edu', supervisorEmail]
+    else:
+        destination = ['hunsaker@ucar.edu']
+    content = content1 + content2
+    sendmail(subject, content, destination)
+    # print(subject + "\n\n\n" + content + "\n\n\n\n" + str(destination))
