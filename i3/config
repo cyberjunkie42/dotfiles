@@ -32,6 +32,9 @@ floating_modifier $mod
 
 # start a terminal
 bindsym $mod+Return exec terminal
+# Change font size in terminal
+#bindsym $mod+Alt+Up exec --no-startup-id printf '\33]50;%s\007' "xft:Terminus:pixelsize=20"
+#bindsym $mod+Alt+Down exec --no-startup-id printf '\33]50;%s\007' "xft:Terminus:pixelsize=16"
 
 # kill focused window
 bindsym $mod+Shift+q kill
@@ -72,7 +75,8 @@ focus_follows_mouse no
 bindsym $mod+j focus left
 bindsym $mod+k focus down
 bindsym $mod+l focus up
-bindsym $mod+odiaeresis focus right
+#bindsym $mod+odiaeresis focus right
+bindsym $mod+semicolon focus right
 
 # alternatively, you can use the cursor keys:
 bindsym $mod+Left focus left
@@ -84,7 +88,8 @@ bindsym $mod+Right focus right
 bindsym $mod+Shift+j move left
 bindsym $mod+Shift+k move down
 bindsym $mod+Shift+l move up
-bindsym $mod+Shift+odiaeresis move right
+#bindsym $mod+Shift+odiaeresis move right
+bindsym $mod+Shift+semicoln move right
 
 # alternatively, you can use the cursor keys:
 bindsym $mod+Shift+Left move left
@@ -201,7 +206,7 @@ bindsym $mod+Shift+bracketright move workspace to output right
 #          Open applications on specific workspaces                      #
 ##########################################################################
 
-# assign [class="Thunderbird"] → $workspace1
+assign [class="Thunderbird"] → $workspace4
 # assign [class="Pale moon"] $workspace2
 # assign [class="Pcmanfm"] $workspace3
 # assign [class="Skype"] $workspace5
@@ -245,6 +250,7 @@ for_window [class="Skype"] floating enable border normal
 for_window [class="Thus"] floating enable border normal
 for_window [class="Timeset-gui"] floating enable border normal
 for_window [class="(?i)virtualbox"] floating enable border normal
+for_window [class="Tomboy"] floating enable border normal
 
 # switch to workspace with urgent window automatically
 for_window [urgent=latest] focus
@@ -294,7 +300,8 @@ mode "resize" {
         bindsym j resize shrink width 5 px or 5 ppt
         bindsym k resize grow height 5 px or 5 ppt
         bindsym l resize shrink height 5 px or 5 ppt
-        bindsym odiaeresis resize grow width 5 px or 5 ppt
+#        bindsym odiaeresis resize grow width 5 px or 5 ppt
+        bindsym semicolon resize grow width 5 px or 5 ppt
 
         # same bindings, but for the arrow keys
         bindsym Left resize shrink width 10 px or 10 ppt
@@ -327,6 +334,9 @@ bar {
 		urgent_workspace #2ECC71 #900000 #FFFFFF
 	}
 	tray_output GPU-0.DVI-I-1
+#position top
+#status_command ~/.i3/bumblebee-status/bumblebee-status -m nic disk:root cpu memory date time pasink pasource dnf -p root.path=/ time.format="%H:%M CW %V" date.format="%a, %b %d %Y" -t solarized-powerline
+#status_command /usr/bin/bumblebee-status -m nic disk:root cpu memory date time pasink pasource dnf -p root.path=/ time.format="%H:%M CW %V" date.format="%a, %b %d %Y" -t gruvbox-powerline
 }
 
 ##########################################################################
@@ -334,13 +344,14 @@ bar {
 ##########################################################################
 
 # Lock screen
-bindsym XF86Explorer exec --no-startup-id blurlock
-
+#bindsym XF86Explorer exec --no-startup-id blurlock
+#bindsym XF86Explorer exec --no-startup-id i3lock --image=/home/lmyers/Pictures/wallpaper/3Monitor/PNG/5760x1080_by_aaronburr.png
+bindsym XF86Explorer exec --no-startup-id i3lock --image=$( shuf -n1 -e /home/lmyers/Pictures/wallpaper/3Monitor/PNG/*)
 # Calculator
 bindsym XF86Calculator exec --no-startup-id galculator
 
 # Albert
-bindsym $mod+space exec --no-startup-id albert show
+#bindsym $mod+space exec --no-startup-id albert show
 
 # Google Music Player
 #bindsym XF86Tools exec --no-startup-id /usr/bin/google-play-music-desktop-player
@@ -373,7 +384,8 @@ for_window [instance="^floating$" class="URxvt"] floating enable, move position 
 
 # Autostart applications
 exec --no-startup-id rescuetime
-exec --no-startup-id albert
+#exec --no-startup-id albert
+exec --no-startup-id flameshot
 exec --no-startup-id /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 exec --no-startup-id nitrogen --restore
 exec --no-startup-id nm-applet
@@ -385,7 +397,7 @@ exec --no-startup-id blueman
 exec --no-startup-id compton -b
 # exec --no-startup-id start_conky_grey
 exec --no-startup-id start_conky_green
-exec --no-startup-id xautolock -time 30 -locker blurlock
+exec --no-startup-id xautolock -time 5 -locker i3lock --image=/home/lmyers/Pictures/wallpaper/3Monitor/PNG/5760x1080_by_aaronburr.png
 #exec --no-startup-id i3-msg 'workspace $workspace5; exec chromium
 #exec --no-startup-id remmina, move window to $workspace7
 exec --no-startup-id firefox
@@ -396,6 +408,15 @@ exec --no-startup-id solaar
 # Autostart for Status Screen
 #exec --no-startup-id palemoon, move window to $workspace8
 #exec --no-startup-id /usr/bin/google-play-music-desktop-player
+#exec --no-startup-id  safeeyes
+exec --no-startup-id tomboy
+exec --no-startup-id zim
+#exec --no-startup-id google-drive-ocamlfuse ~/googledrive
+# Autostart Terminals
+exec --no-startup-id terminal, move window to $workspace1
+exec --no-startup-id terminal, move window to $workspace2
+exec --no-startup-id terminal, move window to $workspace3
+exec --no-startup-id terminal, move window to $workspace4
 
 
 # Theme colors
@@ -412,7 +433,7 @@ for_window [class="^.*"] border pixel 2
 
 # Set inner/outer gaps
 gaps inner 10
-gaps outer 0
+gaps outer 10
 
 # Additionally, you can issue commands with the following syntax. This is useful to bind keys to changing the gap size.
 # gaps inner|outer current|all set|plus|minus <px>
