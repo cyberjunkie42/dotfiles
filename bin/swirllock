@@ -1,0 +1,4 @@
+#!/bin/bash
+import -window root gif:- | convert - -swirl 212 -spread 6 /tmp/screenshotswirl.png
+i3lock -i /tmp/screenshotswirl.png
+

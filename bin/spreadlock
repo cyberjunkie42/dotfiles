@@ -1,0 +1,4 @@
+#!/bin/bash
+import -window root gif:- | convert - -spread 6 /tmp/screenshotspread.png
+i3lock -i /tmp/screenshotspread.png
+

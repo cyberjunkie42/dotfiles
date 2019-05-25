@@ -1,4 +1,4 @@
 #set brackets "’)>]}
-set const
+#set const
 set matchbrackets (<[{)>]}
 include ~/Projects/dotfiles/nanocolors/build/ALL.nanorc 
