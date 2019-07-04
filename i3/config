@@ -412,8 +412,9 @@ exec --no-startup-id xautolock -time 5 -locker i3lock --image=/home/lmyers/Pictu
 #exec --no-startup-id remmina, move window to $workspace7
 exec --no-startup-id firefox
 exec --no-startup-id chromium
-exec --no-startup-id i3-msg 'workspace $workspace1; exec geany
-exec --no-startup-id i3-msg 'workspace $workspace1; exec pcmanfm
+exec --no-startup-id i3-msg 'workspace $workspace1; exec geany'
+exec --no-startup-id i3-msg 'workspace $workspace1; exec pcmanfm'
+exec --no-startup-id i3-msg 'workspace $workspace6; exec tty-clock -b -c -r'
 exec --nostartup-id pasystray
 #exec --no-startup-id nuvolaplayer3
 exec --no-startup-id solaar
